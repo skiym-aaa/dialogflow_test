@@ -1,4 +1,3 @@
-
 from flask import Flask, request, abort
 import os
 
@@ -13,6 +12,8 @@ from linebot.models import (
 )
 
 app = Flask(__name__)
+
+import recommend
 
 #環境変数取得
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
@@ -46,7 +47,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=recommend.recommend(event.message.text)))
 
 if __name__ == "__main__":
 #    app.run()
